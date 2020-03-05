@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<head>
+<title>SLP</title>
+<link rel="shortcut icon" href="img/favicon.png">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/waves.min.css" type="text/css" media="all">
+<link rel="stylesheet" type="text/css" href="css/feather.css">
+<link rel="stylesheet" type="text/css" href="css/themify-icons.css">
+<link rel="stylesheet" type="text/css" href="css/icofont.css">
+<link rel="stylesheet" type="text/css" href="font-awesome/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="css/style.css">
+<link rel="stylesheet" type="text/css" href="css/widget.css">
+<!-- datatables  -->
+<link rel="stylesheet" type="text/css" href="css/responsive.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" type="text/css" href="css/buttons.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="css/media.css">
+</head>
+<body>
+<div id="pcoded" class="pcoded">
+  <div class="pcoded-overlay-box"> </div>
+  <div class="pcoded-container navbar-wrapper">
+    <nav class="navbar header-navbar pcoded-header">
+      <div class="navbar-wrapper">
+        <div class="navbar-logo">
+        	 <a href="dashboard.html"><img src="img/logo.png" class="img_logo" /></a>
+        	 <a class="mobile-menu" id="mobile-collapse" href="#!">
+				<i class="icofont icofont-navigation-menu"></i>
+			 </a>
+        </div>
+        <div class="navbar-container container-fluid">
+          <ul class="nav-left">
+            <li class="header-search">
+                
+            </li>
+          </ul>
+          <ul class="nav-right">
+            <li class="user-profile header-notification">
+              <div class="dropdown-primary dropdown">
+                <div class="dropdown-toggle" data-toggle="dropdown"> <i class="feather icon-user"> </i> Welcome, First Name <i class="feather icon-chevron-down"> </i> </div>
+                <ul class="profile-notification  dropdown-menu">
+                  <li> <a href="edit-profile.html" class="waves-effect waves-light" style="float: none;"> <i class="feather icon-user"> </i> My Profile</a> </li>
+                  <li> <a href="change-password.html" class="waves-effect waves-light" style="float: none;"> <i class="feather icon-settings"> </i> Change Password</a> </li>
+                  <li> <a href="login-page.html" class="waves-effect waves-light" style="float: none;"  data-toggle="modal" data-target="#Logout"> 
+                  <i class="feather icon-log-out"> </i> Logout </a> </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="pcoded-main-container">
+      <div class="pcoded-wrapper">
+        <nav class="pcoded-navbar">
+          <div class="nav-list">
+            <div class="pcoded-inner-navbar main-menu">
+              <ul class="pcoded-item  pcoded-left-item">
+                  <li class="pcoded-hasmenu">
+                  		<a href="Dashboard.html"> 
+                  		   <span class="pcoded-micon"><i class="feather icon-home"></i></span> 
+                  		   <span class="pcoded-mtext">Dashboard </span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#"> 
+                  		   <span class="pcoded-micon"><i class="feather icon-users"></i></span> 
+                  		   <span class="pcoded-mtext">Users</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#">
+                  		   <span class="pcoded-micon"><i class="feather icon-user-plus"></i></span> 
+                  		   <span class="pcoded-mtext">Merchant</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu active">
+                  		<a href="#"> 
+                  		   <span class="pcoded-micon"><i class="feather icon-box"></i></span> 
+                  		   <span class="pcoded-mtext">Products</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#"> 
+                  		   <span class="pcoded-micon"><i class="feather icon-video"></i></span> 
+                  		   <span class="pcoded-mtext">Videos</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#"> 
+                  		   <span class="pcoded-micon"><i class="feather icon-list"></i></span> 
+                  		   <span class="pcoded-mtext">Categories</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#">
+                  		   <span class="pcoded-micon"><i class="feather icon-alert-circle"></i></span> 
+                  		   <span class="pcoded-mtext">Quiz</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#"> 
+                  		   <span class="pcoded-micon"><i class="icofont icofont-dashboard"></i></span>
+                  		   <span class="pcoded-mtext">Leader board</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#"> 
+                  		   <span class="pcoded-micon"><i class="feather icon-flag"></i></span>
+                  		   <span class="pcoded-mtext">Banner</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#"> 
+                  		   <span class="pcoded-micon"><i class="icofont icofont-qr-code"></i></span>
+                  		   <span class="pcoded-mtext">QR Codes</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#">
+                  		   <span class="pcoded-micon"><i class="feather icon-alert-triangle"></i></span>
+                  		   <span class="pcoded-mtext">Dispute Request</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#">
+                  		   <span class="pcoded-micon"><i class="feather icon-file"></i></span>
+                  		   <span class="pcoded-mtext">CMS Pages</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#">
+                  		   <span class="pcoded-micon"><i class="feather icon-settings"></i></span>
+                  		   <span class="pcoded-mtext">Settings</span>
+                  		</a>
+                  </li>
+                  <li class="pcoded-hasmenu">
+                  		<a href="#">
+                  		   <span class="pcoded-micon"><i class="feather icon-shopping-cart"></i></span>
+                  		   <span class="pcoded-mtext">Purchased gift cards</span>
+                  		</a>
+                  </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <div class="pcoded-content">
+          <div class="page-header card">
+            <div class="row align-items-end">
+              <div class="col-lg-8">
+                <div class="page-header-title">
+                  <div class="d-inline">
+                    <h5><a href="batch.html"><i class="icofont icofont-simple-left"></i></a> View Products</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                   
+              </div>
+            </div>
+          </div>
+          
+          <div class="page-header card">
+               <div class="card">
+               	    <div class="card-block">
+               	         <div class="v-product-top">
+							   <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Merchant Name</label>
+												<div class="col-sm-8">
+													 <h4>ABC</h4>
+												</div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Product Name</label>
+												<div class="col-sm-8">
+													 <h4>Barrel</h4>
+												</div>
+										 </div>
+									</div>
+							   </div>
+							   <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Product  Description</label>
+												<div class="col-sm-8">
+													 <p class="m-b-0">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+												</div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Product Image</label>
+												<div class="col-sm-8 sheet-img">
+													 <img src="img/noimage.png" alt="">
+												</div>
+										 </div>
+									</div>
+							   </div>
+                	  	       <hr>
+                	  	       <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">A - Side Batch</label>
+												<div class="col-sm-8">
+													 <h4>56</h4>
+												</div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">B - Side set temp</label>
+												<div class="col-sm-8">
+													 <h4>56</h4>
+												</div>
+										 </div>
+									</div>
+							   </div>
+                	  	       <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">A - Side set temp</label>
+												<div class="col-sm-8">
+													 <h4>56</h4>
+												</div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Hot set temp</label>
+												<div class="col-sm-8">
+													 <h4>56</h4>
+												</div>
+										 </div>
+									</div>
+							   </div>
+                	  	       <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Mixing Chamber Size</label>
+												<div class="col-sm-8">
+													 <h4>56</h4>
+												</div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Pressure set</label>
+												<div class="col-sm-8">
+													 <h4>56</h4>
+												</div>
+										 </div>
+									</div>
+							   </div>
+                 	  	 </div>
+               	    </div>
+               </div>
+               
+               <div class="page-header-title p-b-15">
+				    <div class="d-inline">
+					   <h5>Product Guidelines</h5>
+				    </div>
+			   </div>
+               
+               <div class="card">
+                 	  <div class="card-block">
+                 	  	   <div class="prod-guidelines-list clearfix">
+                 	  	   	    <h2>Technical Datasheet</h2>
+                 	  	   	    <ul>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    </ul>
+                 	  	   </div>
+                 	  	   <div class="prod-guidelines-list clearfix">
+
+                 	  	   	    <h2>Application Guideline</h2>
+                 	  	   	    <ul>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    </ul>
+                 	  	   </div>
+                 	  	   <div class="prod-guidelines-list video-guidelines-list clearfix">
+                 	  	   	    <h2>Video ID</h2>
+                 	  	   	    <ul>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-video"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    </ul>
+                 	  	   </div>
+                 	  	   <div class="prod-guidelines-list clearfix">
+                 	  	   		<h2>Safety Datasheet</h2>
+                 	  	   		<ul>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li>  
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    	<li>
+                 	  	   	    	 	  <div class="box">
+                	  	   	    	 	  	   <a href="#" class="remove1"><i class="icofont icofont-close"></i></a>
+                 	  	   	    	 	  	   <div class="icon">
+                 	  	   	    	 	  	   	    <i class="icofont icofont-file-pdf"></i>
+                 	  	   	    	 	  	   </div>
+                 	  	   	    	 	  </div>
+                 	  	   	    	</li> 
+                 	  	   	    </ul>
+                 	  	   </div>
+                 	  	   
+                 	  </div>
+                 </div>
+               
+               <div class="page-header-title p-b-15">
+				    <div class="d-inline">
+					     <h5>Product Rewards</h5>
+				    </div>
+			   </div>
+               
+               <div class="card">
+               	    <div class="card-block">
+               	    	 <div class="v-product-top">
+               	    	 	  <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+											  <label class="col-sm-4 col-form-label">QR Code Scan</label>
+											  <div class="col-sm-8">
+											       <h4>2500</h4>
+											  </div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">A - Side Batch</label>
+												<div class="col-sm-8">
+													 <h4>2500</h4>
+												</div>
+										 </div>
+									</div>
+							   </div>
+              	    	      <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+											  <label class="col-sm-4 col-form-label">A Side Set Temp</label>
+											  <div class="col-sm-8">
+											       <h4>2500</h4>
+											  </div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">B Side Set Temp</label>
+												<div class="col-sm-8">
+													 <h4>2500</h4>
+												</div>
+										 </div>
+									</div>
+							   </div> 
+              	    	      <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+											  <label class="col-sm-4 col-form-label">Hot Set Temp</label>
+											  <div class="col-sm-8">
+											       <h4>2500</h4>
+											  </div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Pressure Set</label>
+												<div class="col-sm-8">
+													 <h4>2500</h4>
+												</div>
+										 </div>
+									</div>
+							   </div> 
+              	    	      <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+											  <label class="col-sm-4 col-form-label">Mixing Chamber Size</label>
+											  <div class="col-sm-8">
+											       <h4>2500</h4>
+											  </div>
+										 </div>
+									</div>
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label">Photo of Installed Foam</label>
+												<div class="col-sm-8">
+													 <h4>2500</h4>
+												</div>
+										 </div>
+									</div>
+							   </div>
+              	    	      <div class="row">
+									<div class="col-xl-6 col-lg-12 col-sm-12">
+										 <div class="form-group row">
+												<label class="col-sm-4 col-form-label"><strong>Total Points</strong></label>
+												<div class="col-sm-8">
+													 <h4>5000</h4>
+												</div>
+										 </div>
+									</div>
+							   </div>
+               	    	 </div>
+               	    </div>
+               </div>
+               
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="Logout" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header"> </div>
+      <div class="modal-body text-center">
+        <h4>Do you want to Logout? </h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">No </button>
+        <button type="button" class="btn btn-primary waves-effect waves-light ">Yes </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="js/jquery.min.js">
+  </script>
+<script type="text/javascript" src="js/jquery-ui.min.js">
+  </script>
+<script type="text/javascript" src="js/popper.min.js">
+  </script> 
+<script type="text/javascript" src="js/bootstrap.min.js">
+  </script>
+<script src="js/waves.min.js" type="text/javascript">
+  </script> 
+<script type="text/javascript" src="js/jquery.slimscroll.js">
+  </script>
+<script type="text/javascript" src="js/modernizr.js">
+  </script>
+<script type="text/javascript" src="js/css-scrollbars.js">
+  </script> 
+<script type="text/javascript" src="js/common-pages.js">
+  </script> 
+<script src="js/pcoded.js" type="text/javascript">
+  </script> 
+<script type="text/javascript" src="js/script.min.js">
+  </script>
+<script src="js/vertical/vertical-layout.min.js" type="text/javascript">
+  </script>
+  
+<!-- data table -->
+<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.buttons.min.js" type="text/javascript"></script>
+<script src="js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
+<script src="js/dataTables.responsive.min.js" type="text/javascript"></script>
+<script src="js/data-table-custom.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+		$('#multi-colum-dt1').DataTable({
+			
+		});
+</script>
+
+  
+  
+</body>
+</html>
