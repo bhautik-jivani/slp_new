@@ -1,6 +1,6 @@
+from django.core.validators import RegexValidator
 from django.db import models
 from djongo.models import EmbeddedModelField, ArrayModelField
-from django.core.validators import RegexValidator
 
 
 class UserToken(models.Model):
@@ -18,6 +18,7 @@ class AdminToken(models.Model):
 class Address(models.Model):
     """Embedded model to store address of user"""
     contractor = models.IntegerField(null=True, blank=True)
+    merchant_id = models.IntegerField(null=True, blank=True)
     add_line1 = models.CharField(max_length=255, blank=False, null=False)
     add_line2 = models.CharField(max_length=255, blank=False, null=False)
     city = models.CharField(max_length=255, blank=False, null=False)
@@ -114,8 +115,9 @@ class Merchant(models.Model):
         ('Unblock', 'Unblock'),
     )
     status = models.CharField(max_length=50, choices=statuses, default='Unblock')
-    address = EmbeddedModelField(model_container=Address, null=True)
+    address = EmbeddedModelField(model_container=Address, null=True, blank=True)
     company = models.CharField(max_length=255, blank=True, null=True)
+    profile_pic = models.ImageField(upload_to='images/merchant/', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -269,6 +271,11 @@ class Product(models.Model):
     starting_drum_temperature_point_reward = models.IntegerField(blank=True, null=True)
     total_point = models.IntegerField(default=0)
     is_deleted = models.BooleanField(default=False)
+
+
+class ResetToken(models.Model):
+    token = models.CharField(max_length=12)
+    email = models.EmailField()
 
 
 class Batch(models.Model):
@@ -478,13 +485,19 @@ class Quiz(models.Model):
     def __str__(self):
         return self.name
 
-        
+
 class PurchasedGifts(models.Model):
     user = models.ForeignKey('SlpUser', on_delete=models.CASCADE)
     brand_code = models.CharField(max_length=255)
     coupon_amount = models.IntegerField()
 
 
-class ResetToken(models.Model):
+class QrCodes(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    batch = models.ForeignKey(Batch, on_delete=models.CASCADE)
+    qr_code = models.ImageField(upload_to='media/qr', blank=True, null=True)
+
+
+class ForgetPasswordToken(models.Model):
+    email = models.EmailField(blank=True, null=True, unique=True)
     token = models.CharField(max_length=12)
-    email = models.EmailField()

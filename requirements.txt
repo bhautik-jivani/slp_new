@@ -1,3 +1,4 @@
+pyqrcode
 astroid==2.3.3
 bson==0.5.8
 certifi==2019.11.28
