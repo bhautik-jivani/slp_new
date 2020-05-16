@@ -1,5 +1,6 @@
 from django.urls import path
 
+<<<<<<< HEAD
 import user_auth as ua
 from contractor import apis
 from contractor import views
@@ -25,3 +26,8 @@ urlpatterns = [
     path('change_password/', views.change_password),
     path('checkemail/', views.reset_pass),
 ]
+=======
+urlpatterns = [
+    # path('slp_admin/', slp_admin.site.urls),
+]
+>>>>>>> origin/paras

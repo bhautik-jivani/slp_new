@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 from django.shortcuts import render, HttpResponse, redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.views.decorators.csrf import csrf_protect
@@ -20,9 +21,13 @@ from SLP.settings import EMAIL_HOST_USER
 import string
 # import random
 import urllib.parse
+=======
+from django.shortcuts import render
+>>>>>>> origin/paras
 
 
 # Create your views here.
+<<<<<<< HEAD
 @csrf_protect
 def checkLoginVal(request):
     contractor_email = request.POST['user_email']
@@ -295,3 +300,5 @@ def reset_pass(request):
             data = {'title': 'Try again', 'message': 'Email not found...', 'icon': 'error',
                     'url': '/contractor/signin/'}
             return render(request, 'contractor/login-page.html', data)
+=======
+>>>>>>> origin/paras

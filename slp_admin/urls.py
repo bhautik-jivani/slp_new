@@ -10,6 +10,9 @@ from .views import *
 
 # from .quiz import *
 
+from django.contrib import admin
+from django.urls import path
+from . import views
 urlpatterns = [
     path('', login_admin, name='admin_login'),
     path('/logout/', logout_admin, name='admin_logout'),
@@ -61,5 +64,3 @@ urlpatterns = [
 if settings.DEBUG:
     from django.conf.urls.static import static
 
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

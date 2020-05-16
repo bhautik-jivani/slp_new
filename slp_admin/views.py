@@ -69,11 +69,10 @@ def edit_video(request, video_id):
         return redirect('videos')
 
 
-def delete_video(request, video_id):
-    video = models.Video.objects.get(id=video_id)
-    video.delete()
-    return redirect('videos')
+# Create your views here.
 
+def dashboard(request):
+    return render(request, 'slp_admin/dashboard.html')
 
 def videos(request):
     if request.method == 'GET':
@@ -91,6 +90,45 @@ def videos(request):
         }
         return render(request, "videos.html", context)
 
+def merchant(request, id):
+    merchant_detail = Merchant.objects.get(id=id)
+    products_detail = Product.objects.filter(merchant_id=merchant_detail.id)
+
+
+    context = {'merchant_detail': merchant_detail,'products_detail':products_detail }
+
+    return render(request, 'slp_admin/merchant.html', context)
+
+
+def add_merchant(request):
+    if request.method == 'POST':
+        merchant_name = request.POST['merchant_name']
+        merchant_email = request.POST['merchant_email']
+        merchant_phone_number = request.POST['merchant_phone_number']
+        merchant = Merchant(name=merchant_name, email=merchant_email, phone=merchant_phone_number)
+
+        # token = default_token_generator.make_token(merchant.name)
+        # uid = urlsafe_base64_encode(force_bytes(merchant.pk))
+        # print(token)
+
+        import string
+        import random
+        import urllib.parse
+        letters = string.digits + string.ascii_letters
+        code = ''.join([random.choice(letters) for i in range(10)])
+        params = {'token': code}
+
+        letters = string.digits + string.ascii_letters
+        code = ''.join([random.choice(letters) for i in range(10)])
+        params = {'token': code}
+
+        token = ResetToken(token=code, email=merchant_email)
+        token.save()
+
+        if not ResetToken.objects.filter(token=token.token):
+            print("not found")
+        else:
+            message = 'http://127.0.0.1:8000/merchant/reset_password?' + urllib.parse.urlencode(params)
 
 def category(request):
     if request.method == 'GET':
@@ -114,14 +152,15 @@ def category(request):
         return redirect('category')
 
 
-def delete_category(request, category_id):
-    category = models.Category.objects.get(id=category_id)
-    category.delete()
-    return redirect('category')
+def view_merchant(request):
+    # merchant_list = Product.objects.select_related('merchant')
 
+    merchant_list = Merchant.objects.annotate(num_of_products=models.Count('product')).filter(is_deleted="False")
+    context = {
+        'merchant_list': merchant_list,
 
-def dashboard(request):
-    return render(request, "admin_dashboard.html", {})
+    }
+    return render(request, 'slp_admin/view_merchant.html', context)
 
 
 def contractor_list(request):
@@ -142,6 +181,10 @@ def contractor_list(request):
         contractors = Contractor.objects.all()
         return render(request, 'contractors.html', {'contractors': contractors, "name": admin_info.first_name})
 
+def merchant_status(request):
+    """Update merchant status like Block/ Unblock"""
+    status = request.POST['status']
+    merchant_id = request.POST['id']
     if request.method == 'POST':
         contractor_name = request.POST['name']
         contractor_email = request.POST['email']
