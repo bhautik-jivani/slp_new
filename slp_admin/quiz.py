@@ -5,16 +5,32 @@ from slp_admin.models import *
 
 
 def quiz(request):
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
     if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+
         quiz = Quiz.objects.all()
-        context = {"quiz": quiz}
+        context = {"quiz": quiz,'name':admin_info.first_name}
         return render(request, "quiz.html", context)
 
 
 def edit_quiz(request, quiz_id):
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
     if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+    
         quiz = Quiz.objects.get(id=quiz_id)
-        context = {"quiz": quiz, "count": len(quiz.question)}
+        context = {"quiz": quiz,'name':admin_info.first_name, "count": len(quiz.question)}
         return render(request, "edit-questions.html", context)
 
     if request.method == 'POST':
@@ -87,9 +103,17 @@ def delete_quiz(request, quiz_id):
 
 
 def view_quiz(request, quiz_id):
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
     if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+    
         quiz = Quiz.objects.get(id=quiz_id)
-        context = {"quiz": quiz}
+        context = {"quiz": quiz,'name':admin_info.first_name}
         return render(request, "view-questions.html", context)
 
 
@@ -154,8 +178,16 @@ def add_question(request):
             return redirect('quiz')
 
     if request.method == 'GET':
-        video_info = Video.objects.filter(quiz__isnull=True)
-        quiz_info = Quiz.objects.filter(is_deleted=True)
-        print(quiz_info)
-        context = {"videos": video_info, "quiz": quiz_info}
-        return render(request, "add-questions.html", context)
+        try:
+            admin_session = request.session['Admintoken']
+        except:
+            redirect("slpdashboard")
+
+        if request.method == 'GET':
+            admin_token = AdminToken.objects.get(token=admin_session)
+            admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+            video_info = Video.objects.filter(quiz__isnull=True)
+            quiz_info = Quiz.objects.filter(is_deleted=True)
+            print(quiz_info)
+            context = {"videos": video_info, "quiz": quiz_info,'name':admin_info.first_name}
+            return render(request, "add-questions.html", context)

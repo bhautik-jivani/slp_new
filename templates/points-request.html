@@ -1,20 +1,12 @@
-{% extends "base.html" %}
-
+{% extends 'extra/admin_base.html' %}
 {% block title %}
 | Points Requests
 {% endblock %}
-
-{% block extenalcss %}
 {% load static %}
-<!-- datatables  -->
-<link rel="stylesheet" type="text/css" href="{% static 'css/responsive.bootstrap4.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/dataTables.bootstrap4.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/buttons.dataTables.min.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
-{% endblock %}
-
 {% block content %}
-{% load static %}
+{% include 'extra/slpadmin_menu.html' %}
+
+
 <div id="pcoded" class="pcoded">
   <div class="pcoded-overlay-box"> </div>
   <div class="pcoded-container navbar-wrapper">

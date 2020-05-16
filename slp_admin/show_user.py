@@ -22,9 +22,7 @@ def list_user(request):
         admin_info = AdminToken.objects.get(token = admin_session)
         print("admin_info" , admin_info)
         admin_name = SlpAdmin.objects.get(id = admin_info.admin.id)
-        # print(admin_name)
-        print(admin_name.first_name)
-        # listUser = []
+
         try:
             user_list = SlpUser.objects.all()
         except:
@@ -55,6 +53,7 @@ def view_user(request , id):
         print("---id---" , id)
         admin = AdminToken.objects.get(token  = admin_session)
         admin_info = SlpAdmin.objects.get(id = admin.admin.id)
+        print("admin_info",admin_info.first_name)
         try:
             user_info = SlpUser.objects.get(id = id)
         except:
@@ -65,7 +64,7 @@ def view_user(request , id):
             return Response("No records in Point Transaction")
         
         print(reward_info)
-        context = {"user_info" : user_info , "reward_info" : reward_info , "name" : admin_info}
+        context = {"user_info" : user_info , "reward_info" : reward_info , "name" : admin_info.first_name}
         return render(request , "admin_user-profile.html" , context)
     
     if request.method == 'POST':

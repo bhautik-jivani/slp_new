@@ -121,7 +121,7 @@ def login_admin(request):
         except:
             context = {
                 'message': "Invalid Username or Password!",
-                'url': '/slp_admin/login/',
+                'url': 'admin_login',
                 'icon': 'error',
             }
             return render(request, "admin_login.html", context)
@@ -143,7 +143,7 @@ def login_admin(request):
         #     "message": "Admin Logged In",
         #     "token": adminJWT
         # })
-        return redirect("/slp_admin/dashboard/")
+        return redirect("slpdashboard")
     return render(request, "admin_login.html")
 
 
@@ -158,14 +158,14 @@ def logout_admin(request):
         except:
             context = {
                 'message': "Session Expired!",
-                'url': '/slp_admin/login/',
+                'url': 'admin_login',
                 'icon': 'error',
             }
             return render(request, "admin_login.html", context)
         admin_obj.delete()
         context = {
             'message': "Successfully Logged Out!",
-            'url': '/slp_admin/login/',
+            'url': 'admin_login',
             'icon': 'success',
         }
         return render(request, "admin_login.html", context)

@@ -18,5 +18,4 @@ urlpatterns = [
                   path('forget_password', views.forget_password, name='forget_password'),
                   path('download_qr_code/<int:id>', views.download_qr_code, name='download_qr_code'),
                   path('logout', views.logout, name='logout'),
-
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

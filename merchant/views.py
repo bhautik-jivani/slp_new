@@ -30,44 +30,49 @@ def dashboard_page(request):
     try:
         token = request.session['merchanttoken']
         jwtToken = jwt.decode(token, 'merchant_jwt_key')
-        try:
-            merchant = Merchant.objects.get(email=jwtToken['email'])
-            batch_count = Batch.objects.filter()
-            return render(request, 'merchant/dashboard.html')
-        except Exception as e:
-            return HttpResponse(e)
     except KeyError:
         return redirect('merchant_login')
+
+    try:
+        merchant = Merchant.objects.get(email=jwtToken['email'])
+        batch_count = Batch.objects.filter()
+        return render(request, 'merchant/dashboard.html')
+    except Exception as e:
+        return HttpResponse(e)
 
 
 def merchant_login(request):
     if request.method == 'POST':
-        if Merchant.objects.get(email=request.POST['email']):
-            obj = Merchant.objects.get(email=request.POST['email'])
-            if obj.password is not None:
-                if (check_password(request.POST['password'], obj.password)):
+        try:
+            if Merchant.objects.get(email=request.POST['email']):
+                print("request.POST['email']", request.POST['email'])
+                obj = Merchant.objects.get(email=request.POST['email'])
+                if obj.password is not None:
+                    if (check_password(request.POST['password'], obj.password)):
 
-                    sequence = [i for i in range(100)]
-                    smple = sample(sequence, 5)
-                    merchant_token = ''.join(map(str, smple))
-                    jwtToken = jwt.encode({'email': obj.email, 'jti': merchant_token}, 'merchant_jwt_key', )
-                    token = jwtToken.decode("utf-8")
-                    request.session['merchanttoken'] = token
-                    data = {"status": "success", "message": "Thank you", "data": "Login successfully...",
-                            'jwtToken': token}
-                    # return render(request, 'merchant/dashboard.html', {'data': json.dumps(data)})
-                    return redirect('dashboard')
+                        sequence = [i for i in range(100)]
+                        smple = sample(sequence, 5)
+                        merchant_token = ''.join(map(str, smple))
+                        jwtToken = jwt.encode({'email': obj.email, 'jti': merchant_token}, 'merchant_jwt_key', )
+                        token = jwtToken.decode("utf-8")
+                        request.session['merchanttoken'] = token
+                        request.session['name'] = obj.name
+                        data = {"status": "success", "message": "Thank you", "data": "Login successfully...",
+                                'jwtToken': token}
+                        # return render(request, 'merchant/dashboard.html', {'data': json.dumps(data)})
+                        return redirect('dashboard')
+                    else:
+                        data = {"status": "warning", "message": "Try again...", "data": "Password invalid..."}
+                        return render(request, 'merchant/login-page.html', data)
                 else:
-                    data = {"status": "warning", "message": "Try again...", "data": "Password invalid..."}
                     return render(request, 'merchant/login-page.html')
             else:
-                messages.error(request, 'Please set your password first from your email')
-                return render(request, 'merchant/login-page.html')
-        else:
-            return render(request, "merchant/login-page.html", {"message": 'Email does not exists'})
+                return render(request, "merchant/login-page.html", {"error": 'Email does not exists'})
+        except Exception as e:
+            print("error is ", e)
+            return render(request, "merchant/login-page.html", {"error": 'Please try again later'})
     else:
         return render(request, 'merchant/login-page.html')
-
 
 def logout(request):
     try:
@@ -76,14 +81,14 @@ def logout(request):
         try:
             merchant = Merchant.objects.get(email=jwtToken['email'])
             del request.session['merchanttoken']
-            data = {"status": "success", "message": "Bye...", "data": "You are loggedout...",
+            del request.session['name']
+            data = {"status": "success", "message": "Bye...", "data": "You are logged out...",
                     "url": "/contractor/signin/"}
             return redirect('merchant_login')
         except ObjectDoesNotExist:
             return redirect('merchant_login')
     except KeyError:
         return redirect('merchant_login')
-
 
 def add_batch(request):
     try:
@@ -95,56 +100,57 @@ def add_batch(request):
                 context = {'products': products}
                 return render(request, 'merchant/add-batch.html', context)
             if request.method == 'POST':
-                product_id = request.POST['product_id']
-                batch_number = request.POST['batch_number']
+                try:
+                    product_id = request.POST['product_id']
+                    batch_number = request.POST['batch_number']
 
-                batch_start_date = request.POST['batch_start_date']
-                batch_start_time = request.POST['batch_start_time']
-                batch_quantity = request.POST['batch_quantity']
+                    batch_start_date = request.POST['batch_start_date']
+                    batch_start_time = request.POST['batch_start_time']
+                    batch_quantity = request.POST['batch_quantity']
 
-                # code = pyqrcode.create('Are you suggesting coconuts migrate?')
-                # code.png('swallow.png', scale=5)
-                # code.png('swallow.png', scale=5, module_color=(0x66, 0x33, 0x0),
-                #          background=(0xff, 0xff, 0xff, 0x88))
+                    # code = pyqrcode.create('Are you suggesting coconuts migrate?')
+                    # code.png('swallow.png', scale=5)
+                    # code.png('swallow.png', scale=5, module_color=(0x66, 0x33, 0x0),
+                    #          background=(0xff, 0xff, 0xff, 0x88))
 
-                batchobj = Batch(product_id=product_id, batch_number=batch_number, quantity=batch_quantity,
-                                 start_date=batch_start_date, start_time=batch_start_time)
-                batchobj.save()
-                latest_batch_record = Batch.objects.latest('id')
-                print("latest_batch_id", latest_batch_record.id)
+                    batchobj = Batch(product_id=product_id, batch_name=batch_number, quantity=batch_quantity,
+                                     start_date=batch_start_date, start_time=batch_start_time)
+                    batchobj.save()
+                    latest_batch_record = Batch.objects.latest('id')
+                    print("latest_batch_id", latest_batch_record.id)
 
-                product_data = Product.objects.get(id=product_id)
+                    product_data = Product.objects.get(id=product_id)
 
-                def random_with_N_digits(n):
-                    range_start = 10 ** (n - 1)
-                    range_end = (10 ** n) - 1
-                    return randint(range_start, range_end)
+                    def random_with_N_digits(n):
+                        range_start = 10 ** (n - 1)
+                        range_end = (10 ** n) - 1
+                        return randint(range_start, range_end)
 
-                for i in range(int(batch_quantity)):
-                    randomNumber = random_with_N_digits(8)
-                    qr_code = randint(100000, 99999999)
-                    qr_dict = {
-                        "merchant_id": product_data.merchant_id,
-                        "product_id": batchobj.product_id,
-                        "qr_code": qr_code
-                    }
-                    qrjson = json.dumps(qr_dict)
+                    for i in range(int(batch_quantity)):
+                        randomNumber = random_with_N_digits(8)
+                        qr_code = randint(100000, 99999999)
+                        qr_dict = {
+                            "merchant_id": product_data.merchant_id,
+                            "product_id": batchobj.product_id,
+                            "qr_code": qr_code
+                        }
+                        qrjson = json.dumps(qr_dict)
 
-                    code = pyqrcode.create(qrjson)
-                    code.png(settings.MEDIA_ROOT + '/qr/' + str(randomNumber) + 'qrcode.png', scale=5)
-                    reopen = open(settings.MEDIA_ROOT + '/qr/' + str(randomNumber) + 'qrcode.png', "rb+")
-                    # print("basename", os.path.basename(reopen.name))
-                    django_file = File(reopen)
-                    print("qr/" + os.path.basename(reopen.name))
-                    data = QrCodes.objects.create(product_id=product_id, batch_id=latest_batch_record.id,
-                                                  qr_code="qr/" + os.path.basename(reopen.name))
-                return redirect('batch')
+                        code = pyqrcode.create(qrjson)
+                        code.png(settings.MEDIA_ROOT + '/qr/' + str(randomNumber) + 'qrcode.png', scale=5)
+                        reopen = open(settings.MEDIA_ROOT + '/qr/' + str(randomNumber) + 'qrcode.png', "rb+")
+                        # print("basename", os.path.basename(reopen.name))
+                        django_file = File(reopen)
+                        print("qr/" + os.path.basename(reopen.name))
+                        data = QrCodes.objects.create(product_id=product_id, batch_id=latest_batch_record.id,
+                                                      qr_code="qr/" + os.path.basename(reopen.name))
+                    return redirect('batch')
+                except Exception as e:
+                    print("error is ", e)
         except ObjectDoesNotExist:
             return redirect('merchant_login')
     except KeyError:
         return redirect('merchant_login')
-        #
-
 
 def batch(request):
     try:
@@ -161,7 +167,6 @@ def batch(request):
             return redirect('merchant_login')
     except KeyError:
         return redirect('merchant_login')
-
 
 def edit_profile(request):
     if request.method == 'POST':
@@ -224,7 +229,6 @@ def edit_profile(request):
             except KeyError:
                 return redirect('merchant_login')
 
-
 def products(request):
     try:
         token = request.session['merchanttoken']
@@ -264,7 +268,6 @@ def reset_password(request):
         if ResetToken.objects.get(token=sessionToken):
             password1 = request.POST['password1']
             password2 = request.POST['password2']
-
             if password1 == password2:
                 resettokenemail = ResetToken.objects.get(token=sessionToken).email
                 Merchant.objects.filter(email=resettokenemail).update(password=make_password(password2))
@@ -329,7 +332,6 @@ def forget_password(request):
             return render(request, 'merchant/reset-password.html')
     return render(request, 'merchant/reset-password.html')
 
-
 def send_reset_mail(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -367,7 +369,6 @@ def send_reset_mail(request):
         except ObjectDoesNotExist as e:
             return render(request, 'merchant/messages.html', {'message': 'Email dose not exists'})
 
-
 def download_qr_code(request, id):
     qr_codes_list = []
     batch_detail = Batch.objects.select_related('product')
@@ -376,7 +377,7 @@ def download_qr_code(request, id):
 
         for qrCode in qr_code_detail:
             qr_codes_list.append(qrCode.qr_code.url)
-        zipfilename = "Batch_No_" + batch.batch_number
+        zipfilename = "Batch_No_" + batch.batch_name
 
         zip_subdir = "Batch_No_" + str(id)
         zip_filename = "%s.zip" % zip_subdir
@@ -389,5 +390,4 @@ def download_qr_code(request, id):
         zf.close()
         resp = HttpResponse(s.getvalue())
         resp['Content-Disposition'] = 'attachment; filename=%s' % zip_filename
-
         return resp

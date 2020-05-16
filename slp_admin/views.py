@@ -16,6 +16,20 @@ from slp_admin.models import *
 
 
 def add_video(request):
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        category = models.Category.objects.all()
+        context = {
+            "categories": category,
+            'name': admin_info.first_name
+        }
+        return render(request, "add-videos.html", context)
     if request.method == "POST":
         category = request.POST['category_id']
         title = request.POST['title']
@@ -24,15 +38,26 @@ def add_video(request):
         video = models.Video(category_id=category, title=title, description=description, video=video)
         video.save()
         return redirect('videos')
-    else:
-        category = models.Category.objects.all()
-        context = {
-            "categories": category
-        }
-        return render(request, "add-videos.html", context)
 
 
 def edit_video(request, video_id):
+    if request.method == 'GET':
+        try:
+            admin_session = request.session['Admintoken']
+        except:
+            redirect("slpdashboard")
+
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        video = models.Video.objects.get(id=video_id)
+        category = models.Category.objects.all()
+        context = {
+            "categories": category,
+            "videos": video,
+            'name': admin_info.first_name
+        }
+        return render(request, "edit-videos.html", context)
+
     if request.method == "POST":
         video1 = models.Video.objects.filter(id=video_id)
         category = request.POST['category_id']
@@ -42,14 +67,6 @@ def edit_video(request, video_id):
         cat = models.Category.objects.get(id=category)
         video1.update(title=title, category=cat, description=description)
         return redirect('videos')
-    else:
-        video = models.Video.objects.get(id=video_id)
-        category = models.Category.objects.all()
-        context = {
-            "categories": category,
-            "videos": video
-        }
-        return render(request, "edit-videos.html", context)
 
 
 def delete_video(request, video_id):
@@ -59,25 +76,42 @@ def delete_video(request, video_id):
 
 
 def videos(request):
-    video = models.Video.objects.all()
-    context = {
-        "videos": video
-    }
-    return render(request, "videos.html", context)
+    if request.method == 'GET':
+        try:
+            admin_session = request.session['Admintoken']
+        except:
+            redirect("slpdashboard")
+
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        video = models.Video.objects.all()
+        context = {
+            "videos": video,
+            'name': admin_info.first_name
+        }
+        return render(request, "videos.html", context)
 
 
 def category(request):
+    if request.method == 'GET':
+        try:
+            admin_session = request.session['Admintoken']
+        except:
+            redirect("slpdashboard")
+
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        category = models.Category.objects.all()
+        context = {
+            "categories": category,
+            'name': admin_info.first_name
+        }
+        return render(request, "videos-categories.html", context)
     if request.method == "POST":
         category = request.POST['category']
         category_new = models.Category(name=category)
         category_new.save()
         return redirect('category')
-    else:
-        category = models.Category.objects.all()
-        context = {
-            "categories": category
-        }
-        return render(request, "videos-categories.html", context)
 
 
 def delete_category(request, category_id):
@@ -247,7 +281,8 @@ def dashboard(request):
                              "merchant_count": 0,
                              "videos_count": 0,
                              "products_count": 0,
-                             "banner_count": 0
+                             "banner_count": 0,
+                             "contractor_count": 0,
                              }
         except:
             print("SlpUser model Empty")
@@ -259,7 +294,8 @@ def dashboard(request):
                              "merchant_count": merchant_count.count(),
                              "videos_count": 0,
                              "products_count": 0,
-                             "banner_count": 0
+                             "banner_count": 0,
+                             "contractor_count": 0,
                              }
         except:
             print("Merchant model Empty")
@@ -271,7 +307,8 @@ def dashboard(request):
                              "merchant_count": merchant_count.count(),
                              "videos_count": video_count.count(),
                              "products_count": 0,
-                             "banner_count": 0
+                             "banner_count": 0,
+                             "contractor_count": 0,
                              }
         except:
             print("Video model Empty")
@@ -282,7 +319,8 @@ def dashboard(request):
                              "merchant_count": merchant_count.count(),
                              "videos_count": video_count.count(),
                              "products_count": product_count.count(),
-                             "banner_count": 0
+                             "banner_count": 0,
+                             "contractor_count": 0,
                              }
         except:
             print("Product model Empty")
@@ -294,7 +332,21 @@ def dashboard(request):
                              "merchant_count": merchant_count.count(),
                              "videos_count": video_count.count(),
                              "products_count": product_count.count(),
-                             "banner_count": banner_count.count()
+                             "banner_count": banner_count.count(),
+                             "contractor_count": 0,
+                             }
+        except:
+            print("Banner model Empty")
+            banner_count = 0
+
+        try:
+            contractor_count = Contractor.objects.all()
+            dashboar_list = {"user_count": user_count.count(),
+                             "merchant_count": merchant_count.count(),
+                             "videos_count": video_count.count(),
+                             "products_count": product_count.count(),
+                             "banner_count": banner_count.count(),
+                             "contractor_count": contractor_count.count(),
                              }
         except:
             print("Banner model Empty")
@@ -455,87 +507,137 @@ def purchased_gift_page(request):
             'icon': 'error',
         }
         return render(request, "admin_login.html", context)
-    obj = PurchasedGifts.objects.all()
-    template_name = "purchased_gifts.html"
-    return render(request, template_name, {'gift_log': obj})
+
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        obj = PurchasedGifts.objects.all()
+        template_name = "purchased_gifts.html"
+        return render(request, template_name, {'gift_log': obj, 'name': admin_info.first_name})
 
 
 from slp_admin import models
 
 
 def qr_codes(request):
-    scanned_qr = models.ScannedQRCode.objects.all()
-    context = {
-        "scanned_qr": scanned_qr
-    }
-    return render(request, "qr-codes.html", context)
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        scanned_qr = models.ScannedQRCode.objects.all()
+        context = {
+            "scanned_qr": scanned_qr,
+            'name': admin_info.first_name
+        }
+        return render(request, "qr-codes.html", context)
 
 
 def dispute_requests(request):
-    disputes = models.Dispute.objects.all()
-    context = {
-        "disputes": disputes
-    }
-    return render(request, "dispute-request.html", context)
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        disputes = models.Dispute.objects.all()
+        context = {
+            "disputes": disputes,
+            'name': admin_info.first_name
+        }
+        return render(request, "dispute-request.html", context)
 
 
 def merchant(request, id):
-    merchant_detail = Merchant.objects.get(id=id)
-    products_detail = Product.objects.filter(merchant_id=merchant_detail.id)
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
 
-    context = {'merchant_detail': merchant_detail, 'products_detail': products_detail}
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
 
-    return render(request, 'slp_admin/merchant.html', context)
+        print("admin_info", admin_info)
+        merchant_detail = Merchant.objects.get(id=id)
+        products_detail = Product.objects.filter(merchant_id=merchant_detail.id)
+
+        context = {'name': admin_info.first_name, 'merchant_detail': merchant_detail,
+                   'products_detail': products_detail}
+
+        return render(request, 'slp_admin/merchant.html', context)
 
 
 def add_merchant(request):
     try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        return render(request, 'slp_admin/add_merchant.html', {'name': admin_info.first_name})
         if request.method == 'POST':
+            try:
+                merchant_name = request.POST['merchant_name']
 
-            merchant_name = request.POST['merchant_name']
-            merchant_email = request.POST['merchant_email']
-            merchant_phone_number = request.POST['merchant_phone_number']
-            merchant = Merchant(name=merchant_name, email=merchant_email, phone=merchant_phone_number)
-            print(merchant)
+                merchant_email = request.POST['merchant_email']
+                merchant_phone_number = request.POST['merchant_phone_number']
+                merchant = Merchant(name=merchant_name, email=merchant_email, phone=merchant_phone_number)
+                print(merchant)
 
-            import string
-            import random
-            import urllib.parse
-            letters = string.digits + string.ascii_letters
-            code = ''.join([random.choice(letters) for i in range(10)])
-            params = {'token': code}
+                import string
+                import random
+                import urllib.parse
+                letters = string.digits + string.ascii_letters
+                code = ''.join([random.choice(letters) for i in range(10)])
+                params = {'token': code}
 
-            letters = string.digits + string.ascii_letters
-            code = ''.join([random.choice(letters) for i in range(10)])
-            params = {'token': code}
+                letters = string.digits + string.ascii_letters
+                code = ''.join([random.choice(letters) for i in range(10)])
+                params = {'token': code}
 
-            token = ResetToken(token=code, email=merchant_email)
-            token.save()
+                token = ResetToken(token=code, email=merchant_email)
+                token.save()
 
-            if not ResetToken.objects.filter(token=token.token):
-                print("not found")
-            else:
-                message = 'http://127.0.0.1:8000/merchant/reset_password?' + urllib.parse.urlencode(params)
-                subject = "This mail for reset password just Click Below link to reset password Thank you for using our services parasdabhi2021@gmail.com"
+                if not ResetToken.objects.filter(token=token.token):
+                    print("not found")
+                else:
+                    message = 'http://127.0.0.1:8000/merchant/reset_password?' + urllib.parse.urlencode(params)
+                    subject = "This mail for reset password just Click Below link to reset password Thank you for using our services parasdabhi2021@gmail.com"
 
-                send_mail(subject, message, EMAIL_HOST_USER, [merchant_email], fail_silently=False)
+                    send_mail(subject, message, EMAIL_HOST_USER, [merchant_email], fail_silently=False)
 
-            merchant.save()
-            return redirect('view_merchant')
-        else:
-            return render(request, 'slp_admin/add_merchant.html')
-    except Exception as e:
-        print(e)
+                merchant.save()
+                return redirect('view_merchant')
+            except Exception as e:
+                print(e)
 
 
 def view_merchant(request):
+    # admin_token = AdminToken.objects.get(token=admin_session)
+    # admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
     # merchant_list = Merchant.objects.annotate(num_of_products=models.Count('product')).filter(is_deleted="False")
-    merchant_list = Merchant.objects.all().annotate(num_of_products=Count('product')).filter(is_deleted="False")
 
-    print("query is ", merchant_list.query)
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        merchant_list = Merchant.objects.all().annotate(num_of_products=Count('product')).filter(is_deleted="False")
 
     context = {
         'merchant_list': merchant_list,
+        'name': admin_info.first_name
 
     }
     return render(request, 'slp_admin/view_merchant.html', context)
@@ -565,6 +667,18 @@ def merchant_status(request):
 
 
 def add_products(request):
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        merchant_list = Merchant.objects.all()
+        context = {'merchant_list': merchant_list, 'name': admin_info.first_name}
+        return render(request, 'slp_admin/add-products.html', context)
+
     if request.method == 'POST':
 
         techncal_file_count = int(request.POST['technical_uploaded_file_count'])
@@ -714,18 +828,19 @@ def add_products(request):
         context = {'merchant_list': merchant_list}
         return render(request, 'slp_admin/add-products.html', context)
 
-    else:
-        merchant_list = Merchant.objects.all()
-        context = {'merchant_list': merchant_list}
-        return render(request, 'slp_admin/add-products.html', context)
-
 
 def products(request):
-    product_list = Product.objects.select_related('merchant').filter(merchant__is_deleted=False, is_deleted=False)
-    context = {'product_list': product_list}
-    return render(request, 'slp_admin/products.html', context)
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
 
-
+    if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+        product_list = Product.objects.select_related('merchant').filter(merchant__is_deleted=False, is_deleted=False)
+        context = {'product_list': product_list, 'name': admin_info.first_name}
+        return render(request, 'slp_admin/products.html', context)
 
 
 def delete_product(request, id):
@@ -734,7 +849,15 @@ def delete_product(request, id):
 
 
 def edit_product(request, id):
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
     if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
+
         numbers = []
         mixing_chamber_size = []
         pressure_set = []
@@ -763,6 +886,7 @@ def edit_product(request, id):
             'starting_drum_temperature': starting_drum_temperature,
             'merchant_list': merchant_list,
             'merchant_name': merchant_name,
+            'name': admin_info.first_name
         }
         return render(request, 'slp_admin/edit-product.html', context)
     if request.method == 'POST':
@@ -1012,6 +1136,14 @@ def edit_product_certificate_file(request):
 
 
 def view_slp_product(request, id):
+    try:
+        admin_session = request.session['Admintoken']
+    except:
+        redirect("slpdashboard")
+
     if request.method == 'GET':
+        admin_token = AdminToken.objects.get(token=admin_session)
+        admin_info = SlpAdmin.objects.get(id=admin_token.admin.id)
         product_detail = Product.objects.select_related('merchant').get(pk=id)
-        return render(request, 'slp_admin/view-product.html', {'product_detail': product_detail})
+        return render(request, 'slp_admin/view-product.html',
+                      {'product_detail': product_detail, 'name': admin_info.first_name})

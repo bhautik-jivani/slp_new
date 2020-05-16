@@ -6,7 +6,7 @@ function addTechnicalPdfFile(input) {
         if( input.files[0].size > 2000000)
         {
             swal("Error!", "Please select file less then 2Mb!", "error", {
-                button: "Ok!",
+                button: "Ok!",  
             });
         }else if( input.files[0].type != 'application/pdf'){
             swal("Error!", "Please select pdf file!", "error", {
@@ -37,7 +37,7 @@ function addTechnicalPdfFile(input) {
     }
 }
 function removeTechnicalFile(file_count){
-    var tech_file_input = document.getElementById('technical_file_'+file_count);
+    var tech_file_input = document.getElementById('technical_file_'+file_count);    
     tech_file_input.remove();
 
     var li_display_file = document.getElementById('display_tech_file_'+file_count);

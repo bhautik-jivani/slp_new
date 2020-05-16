@@ -1,8 +1,26 @@
-{% extends 'admin_base.html' %}
+{% extends 'extra/admin_base.html' %}
 {% load static %}
-
 {% block content %}
+
+
+<nav style="margin-top: 50px;" class="navbar navbar-expand-lg bg-dark navbar-dark ">
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'merchant_login' %}">Merchant</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'contractor_login' %}">Contractor</a>
+    </li>
+  </ul>
+  <!-- Navbar text-->
+<span class="navbar-text ml-auto">
+    <a class="nav-link" href="{% url 'admin_login' %}">Admin</a>
+  </span>
+</nav>
+<br>
 <section class="login-block">
+
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-12">
@@ -12,17 +30,17 @@
             <div class="card-block">
               <div class="row">
                 <div class="col-md-12">
-                  <h3 class="text-center txt-primary">Sign In </h3>{{context}}
+                  <h3 class="text-center txt-primary">Sign In</h3>{{context}}
                 </div>
               </div>
               <div class="form-group">
                    <label>Username</label>
-                   <input type="text" class="form-control" name="email" required>
+                   <input type="text" class="form-control" name="email" required placeholder="For ex. yourname@email.com">
               </div>
               <div class="form-group">
-                   <label>Password</label>
-                   <input type="text" class="form-control" name="password" required>
-              </div>
+                <label>Password</label>
+                <input type="password" class="form-control" name="password" required placeholder="Password">
+            </div>
               <div class="row m-t-10 text-left">
                 <div class="col-12">
                   <div class="checkbox-fade fade-in-primary">
