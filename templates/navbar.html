@@ -3,19 +3,19 @@
       <div class="pcoded-inner-navbar main-menu">
         <ul class="pcoded-item   pcoded-left-item">
           <li class="pcoded-hasmenu active">
-              <a href="/slp_admin/dashboard/"> 
+              <a href="{% url 'slpdashboard' %}"> 
                   <span class="pcoded-micon"><i class="feather icon-home"></i></span> 
                   <span class="pcoded-mtext">Dashboard </span>
               </a>
           </li>
           <li class="pcoded-hasmenu">
-              <a href="/slp_admin/list_user/"> 
+              <a href="{% url 'slp_list_user' %}"> 
                   <span class="pcoded-micon"><i class="feather icon-users"></i></span> 
                   <span class="pcoded-mtext">Users</span>
               </a>
           </li>
           <li class="pcoded-hasmenu">
-            <a href="/slp_admin/contractors/"> 
+            <a href="{% url 'list_contractor' %}"> 
                 <span class="pcoded-micon"><i class="fas fa-users"></i></span> 
                 <span class="pcoded-mtext">Contractors</span>
             </a>

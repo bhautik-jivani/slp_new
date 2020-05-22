@@ -22,7 +22,7 @@ from user_auth import login_admin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('slp_admin', include('slp_admin.urls')),
+    path('slp_admin/', include('slp_admin.urls')),
     path('merchant/', include('merchant.urls')),
     path('contractor/', include('contractor.urls')),
     path('user/', include('user.urls')),

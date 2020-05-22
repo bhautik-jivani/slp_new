@@ -89,11 +89,9 @@
         'text': "{{message}}",
         'icon': "{{icon}}"
   }).then(function(){
-      window.location = "{{url}}";
+      window.location = "{% url 'admin_login' %}";
   });
   }
-  
-
 </script>
 {% endblock %}
 

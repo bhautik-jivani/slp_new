@@ -113,8 +113,6 @@ def login_admin(request):
     if request.method == 'POST':
         email = request.POST['email']
         password = request.POST['password']
-        print(email)
-        print(password)
         try:
             adminAuth = SlpAdmin.objects.get(email=email, password=password)
             print(adminAuth)
@@ -125,6 +123,7 @@ def login_admin(request):
                 'icon': 'error',
             }
             return render(request, "admin_login.html", context)
+            # return redirect('admin_login')
             # return Response("Invalid Username or Password")
         current = datetime.now()
         print(current)
