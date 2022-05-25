@@ -20,7 +20,7 @@ lml==0.0.9
 mccabe==0.6.1
 passlib==1.7.2
 Pillow==7.0.0
-PyJWT==1.7.1
+PyJWT==2.4.0
 openpyxl==3.0.3
 pyexcel-io==0.5.20
 pyexcel-xlsx==0.5.8
